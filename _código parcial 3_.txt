@@ -1,0 +1,24 @@
+_código parcial 3_
+
+import threading
+import time
+import random
+
+def descargar_archivo(nombre, segundos):
+    print(f"Descargando '{nombre}'... (Tiempo estimado: {segundos} segundos)")
+    time.sleep(segundos) 
+    print(f"¡'{nombre}' descargado!")
+archivos = [
+    ("gaton.jpg", random.randint(1, 5)),
+    ("video.mp4", random.randint(3, 8)),
+    ("Ética demostrada según el orden geométrico.pdf", random.randint(2, 6)),
+    ("Weltchmerz-Aspasia.mp3", random.randint(4, 7))
+]
+hilos = []
+for nombre, segundos in archivos:
+    hilo = threading.Thread(target=descargar_archivo, args=(nombre, segundos))
+    hilos.append(hilo)
+    hilo.start()
+for hilo in hilos:
+    hilo.join()
+print("¡Todas las descargas han finalizado!")
